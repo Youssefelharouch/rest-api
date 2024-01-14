@@ -26,8 +26,8 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`server running on http://localhost:${port}/`);
 });
-mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGO_URL || "");
+mongoose.Promise =Promise;
+mongoose.connect(process.env.MONGO_URL  || "");
 mongoose.connection.on("error", (error:Error) => {
     console.log(error);
   });
