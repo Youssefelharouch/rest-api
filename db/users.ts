@@ -1,23 +1,15 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
+// User Config
 const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true },
   email: { type: String, required: true },
+  username: { type: String, required: true },
   authentication: {
     password: { type: String, required: true, select: false },
     salt: { type: String, select: false },
     sessionToken: { type: String, select: false },
   },
 });
-interface User {
-  username: string;
-  email: string;
-  authentication: {
-    password: string;
-    salt: string;
-    sessionToken?: string;
-  };
-}
 
 export const UserModel = mongoose.model("User", UserSchema);
 
@@ -39,7 +31,7 @@ export const getUserById = (id: string) => {
 };
 
 // This function creates a new user in the database
-export const createUser = (values: User) =>
+export const createUser = (values: Record<string, any>) =>
   // Create a new UserModel instance with the provided values
   // Save the new user to the database
   // Convert the saved user document to a plain JavaScript object and return it
@@ -49,8 +41,8 @@ export const deleteUser = (id: string) => {
   UserModel.findOneAndDelete({ _id: id });
 };
 
-export const updateUserById = (id: string, values: User) => {
+export const updateUserById = (id: string, values: Record<string, any>) => {
   UserModel.findByIdAndUpdate(id, values);
 };
-export const updateUser = (id: string, values: User) =>
+export const updateUser = (id: string, values: Record<string, any>) =>
   UserModel.findByIdAndUpdate(id, values);
