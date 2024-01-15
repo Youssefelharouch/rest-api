@@ -15,7 +15,7 @@ interface User {
   authentication: {
     password: string;
     salt: string;
-    sessionToken: string;
+    sessionToken?: string;
   };
 }
 
@@ -26,9 +26,8 @@ export const getUser = () => {
   UserModel.find();
 };
 // This function retrieves a user from the database by their email
-export const getUserByEmail = (email: string) => {
-  UserModel.findOne({ email });
-};
+export const getUserByEmail = (email: string) => UserModel.findOne({ email });
+
 // This function retrieves a user from the database by their session token
 export const getUserBySessionToken = (sessionToken: string) => {
   UserModel.findOne({ "authentication.sessionToken": sessionToken });
@@ -51,7 +50,7 @@ export const deleteUser = (id: string) => {
 };
 
 export const updateUserById = (id: string, values: User) => {
-    UserModel.findByIdAndUpdate(id, values);
-    }
+  UserModel.findByIdAndUpdate(id, values);
+};
 export const updateUser = (id: string, values: User) =>
   UserModel.findByIdAndUpdate(id, values);

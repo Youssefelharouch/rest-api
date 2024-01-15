@@ -8,7 +8,7 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
-import {random} from './helpers/index';
+import router from '../router';
 
 app.use(
   cors({
@@ -20,7 +20,6 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-console.log(random());
 
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
@@ -39,6 +38,6 @@ const connectDB = async () => {
   }
 };
 connectDB();
-
+app.use(router());
 
 
