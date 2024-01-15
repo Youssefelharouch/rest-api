@@ -53,3 +53,5 @@ export const deleteUser = (id: string) => {
 export const updateUserById = (id: string, values: User) => {
     UserModel.findByIdAndUpdate(id, values);
     }
+export const updateUser = (id: string, values: User) =>
+  UserModel.findByIdAndUpdate(id, values);
