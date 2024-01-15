@@ -8,7 +8,7 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
-
+import {random} from './helpers/index';
 
 app.use(
   cors({
@@ -20,14 +20,25 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+console.log(random());
+
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
     console.log(`server running on http://localhost:${port}/`);
 });
-mongoose.Promise =Promise;
-mongoose.connect(process.env.MONGO_URL  || "");
-mongoose.connection.on("error", (error:Error) => {
-    console.log(error);
-  });
+
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URL as string);
+    console.log(`mongoDB connected : ${conn.connection.host}`);
+  } catch (err) {
+    console.log(`Error ${err}`);
+  }
+};
+connectDB();
+
+
+
